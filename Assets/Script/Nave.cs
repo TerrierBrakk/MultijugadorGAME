@@ -78,18 +78,18 @@ public class Nave : MonoBehaviour
 
     void DamageSounds()
     {
-        if (Barravida.health <= 60.0f && Barravida.health >=40.0f)
+       /* if (Barravida.health <= 60.0f && Barravida.health >=40.0f)
         {
-            StaticManager.soundmanager.PlaySound("light");
+           // StaticManager.soundmanager.PlaySound("light");
         }
         if (Barravida.health <= 30.0f && Barravida.health >= 20.0f)
         {
-            StaticManager.soundmanager.PlaySound("moderate");
+            //StaticManager.soundmanager.PlaySound("moderate");
         }
         if (Barravida.health <= 10.0f && Barravida.health >= 0.1f)
         {
-            StaticManager.soundmanager.PlaySound("heavy");
-        }
+            //StaticManager.soundmanager.PlaySound("heavy");
+        }*/
     }
    
    public void Puntuacion()
