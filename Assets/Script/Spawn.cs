@@ -16,8 +16,11 @@ public class Spawn : NetworkBehaviour
 
     void SpawnEnemigo()
     {
-        for(int i=0;i<oleada;i++)
-        Instantiate(enemigos[(int)Random.Range(0, enemigos.Length)], new Vector3(Random.Range(-8.5f,8.5f),7,0),Quaternion.identity);
+        for (int i = 0; i < oleada; i++)
+        {
+            GameObject go = Instantiate(enemigos[(int)Random.Range(0, enemigos.Length)], new Vector3(Random.Range(-8.5f, 8.5f), 7, 0), Quaternion.identity);
+            NetworkServer.Spawn(go);
+        }
     }
     // Update is called once per frame
     void Update()
