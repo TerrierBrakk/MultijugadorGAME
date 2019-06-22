@@ -34,7 +34,13 @@ public class Enemigo : MonoBehaviour
         if (col.gameObject.tag == "Player")
         {
             StaticManager.soundmanager.PlaySound("choque");
-            col.gameObject.GetComponent<Nave>().Damage();
+            GameObject hit = col.gameObject;
+            Barravida vida = hit.GetComponent<Barravida>();
+
+            if(vida !=null)
+            {
+                vida.TakeDamage(10.0f); 
+            }
             
             Die();
            

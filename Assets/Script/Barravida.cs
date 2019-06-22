@@ -2,23 +2,59 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-public class Barravida : MonoBehaviour
+using UnityEngine.Networking;
+
+
+public class Barravida : NetworkBehaviour
 {
-    Image healthbar;
-    public float maxHealth=100f;
-    public static float health;
-   
-    // Start is called before the first frame update
-   
-    void Start()
+    //Image healthbar;
+    public const float maxHealth = 100f;
+   [SyncVar(hook = "OnChangeHealth")] public float curretHealth = maxHealth;
+    public Image healthbar;
+
+    public void TakeDamage(float amount)
     {
-        healthbar = GetComponent<Image>();
-        health = maxHealth;
+        if (!isServer)
+        {
+            return;
+        }
+
+        curretHealth -= amount;
+        if (curretHealth <= 0)
+        {
+            curretHealth = maxHealth;
+            RpcRespawn();
+        }
+        
+
+        //Playerdeath();
+        //DamageSounds();
     }
 
-    // Update is called once per frame
-    void Update()
+    void OnChangeHealth(float vida)
     {
-        healthbar.fillAmount = health / maxHealth;
+        healthbar.fillAmount = vida / maxHealth;
     }
-}
+
+
+    [ClientRpc]
+    void RpcRespawn()
+    {
+        if(isLocalPlayer)
+        {
+            transform.position = Vector3.zero;
+        }
+    }
+/*
+    public void Playerdeath()
+    {
+        if (Barravida.health <= 0)
+        {
+            gameObject.SetActive(false);
+           // UnityEngine.SceneManagement.SceneManager.LoadScene("GameOver");
+
+        }*/
+    }
+
+
+

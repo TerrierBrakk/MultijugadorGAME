@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Networking;
 
-public class Nave : MonoBehaviour
+public class Nave : NetworkBehaviour
 {
      
     public Text hits;
@@ -11,7 +12,7 @@ public class Nave : MonoBehaviour
     //GameObject para la bala
     public GameObject Bala;
     //Gameobject para la posicion de la bala
-    GameObject a;
+    public GameObject a;
     int contador = 0;
     
 
@@ -23,59 +24,48 @@ public class Nave : MonoBehaviour
     //Variable para delay del disparo
     int delay = 0;
     // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+  
     void Awake()
     {
         rbody = GetComponent<Rigidbody2D>();
-        a = transform.Find("Single").gameObject;
+        
     }    
    
     // Update is called once per framer
     void Update()
     {
+        if (!isLocalPlayer)
+        {
+            return;
+        }
 
         Movement();
 
-        if (Input.GetKey(KeyCode.Space) && delay > 8)            
-            Shoot();
-            delay++;       
+        if (Input.GetKey(KeyCode.Space) && delay > 8)        
+            CmdShoot();
+            delay++;
+        
+        
     }
-   
-    public void Damage()
-    {
-        Barravida.health -= 10.0f;
-        Playerdeath();
-        DamageSounds();
-    }
-    
-
-    public void Playerdeath()
-    {
-        if (Barravida.health <= 0)
-        {
-            gameObject.SetActive(false);
-            UnityEngine.SceneManagement.SceneManager.LoadScene("GameOver");
-            //print(vidas.lifes);
-            // vidas.lifes -= 1;
-        }
-    }
+  
 
     void Movement() {
         rbody.AddForce(new Vector2(Input.GetAxis("Horizontal") * speed, 0));
         rbody.AddForce(new Vector2(0, Input.GetAxis("Vertical") * speed));
     }
-      
-    void Shoot()
+     
+    [Command]
+    void CmdShoot()
     {
        StaticManager.soundmanager.PlaySound("disparo");
+        RpcClientShoot(); 
+    }
+    [ClientRpc]
+    void RpcClientShoot()
+    {
         delay = 0;
         Instantiate(Bala, a.transform.position, Quaternion.identity);
-      
     }
-
     void DamageSounds()
     {
        /* if (Barravida.health <= 60.0f && Barravida.health >=40.0f)
@@ -84,7 +74,7 @@ public class Nave : MonoBehaviour
         }
         if (Barravida.health <= 30.0f && Barravida.health >= 20.0f)
         {
-            //StaticManager.soundmanager.PlaySound("moderate");
+            //StaticManager.soundmanager.PlaySou nd("moderate");
         }
         if (Barravida.health <= 10.0f && Barravida.health >= 0.1f)
         {

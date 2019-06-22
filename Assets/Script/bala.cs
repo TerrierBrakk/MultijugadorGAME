@@ -1,8 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Networking;
 
-public class bala : MonoBehaviour
+public class bala : NetworkBehaviour
 {
     Rigidbody2D rb;
     int dir = 1;
@@ -36,5 +37,16 @@ public class bala : MonoBehaviour
             gameObject.SetActive(false);
             print("Golpie fin de escenario");
         }
+
+        GameObject hit = col.gameObject;
+        Barravida health = hit.GetComponent<Barravida>();
+
+        if (health != null)
+        {
+            health.TakeDamage(10f);
+        }
+
+
+
     }
 }

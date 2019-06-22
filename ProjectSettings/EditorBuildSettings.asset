@@ -8,25 +8,25 @@ EditorBuildSettings:
   - enabled: 0
     path: 
     guid: 00000000000000000000000000000000
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Menu.unity
     guid: 2d6b3a4be5f5e8a41ae896afa975c872
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Register.unity
     guid: fdfbd5c57d0739f46804786a5c863451
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Login.unity
     guid: 9c5845b81d8f31e4f89f59b20f70ed1a
   - enabled: 1
     path: Assets/Scenes/InGame.unity
     guid: 3c46c39e093c6b648a952f12bb17fefb
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/ShowStats.unity
     guid: be5b5d99e68d4f945900425e60235656
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/GameOver.unity
     guid: 7ff2898c93f14c14c81612019360f83b
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Account.unity
     guid: 9f1e05bf004dde44485ccb24275d5ea4
   m_configObjects: {}
